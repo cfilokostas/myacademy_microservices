@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ course.title }}</title>
+  <link rel="stylesheet" href="{% static 'courses_microservice/course-details_style.css' %}">
+</head>
+<body>
+
+  <header class="top-bar">
+    <a class="logo" href="/">www.myacademy.gr</a>
+    <nav class="nav-links">
+      <a href="/">Αρχική</a>
+
+      <div class="dropdown">
+        <a href="/courses/">Μαθήματα</a>
+        <div class="dropdown-content">
+          <a href="#">Design</a>
+          <a href="#">Lifestyle</a>
+          <a href="#">Marketing</a>
+          <a href="#">Επιχειρήσεις</a>
+          <a href="#">Λογιστικά και Οικονομικά</a>
+          <a href="#">Εργασίες Γραφείου</a>
+          <a href="#">Μουσική</a>
+          <a href="#">Πληροφορική</a>
+          <a href="#">Προσωπική Εξέλιξη</a>
+          <a href="#">Υγεία και Άσκηση</a>
+          <a href="#">Φωτογραφία και Βίντεο</a>
+        </div>
+      </div>
+
+      <a href="/users/register-teacher/">Εγγραφή εκπαιδευτών</a>
+      <a href="/users/control-panel/">Πίνακας Ελέγχου</a>
+      <a href="/users/login/">Σύνδεση</a>
+    </nav>
+  </header>
+
+  <main class="course-details"> 
+    <div class="course-hero">
+      <!--<img src="thumbnail.jpg" alt="Thumbnail Μαθήματος" class="course-thumbnail">-->
+      <div class="course-meta">
+        <h1 id="courseTitle">{{ course.title }}</h1>
+        <p><strong>Κατηγορία:</strong> {{ course.category }}</p>
+        <p><strong>Επίπεδο:</strong> {{ course.level }}</p>
+        <p><strong>Εκπαιδευτής:</strong> {{ course.instructor }}</p>
+        <p><strong>Διάρκεια:</strong> {{ course.duration }} Ώρες</p>
+        <p><strong>Τιμή:</strong> {{ course.price }} €</p>
+        <button id="enrollButton">Εγγραφή στο Μάθημα</button>
+      </div>
+    </div>
+
+    <section class="course-description">
+      <h2>Περιγραφή</h2>
+      <p><strong>Περιγραφή:</strong> {{ course.description }}</p>
+    </section>
+
+    <section class="course-content">
+      <h2>Περιεχόμενο Μαθήματος</h2>
+      <ul id="courseContent">
+        <li>Εισαγωγή στο περιβάλλον εργασίας</li>
+        <li>Εργαλεία επιλογής και διόρθωσης</li>
+        <li>Χρώματα και layers</li>
+        <li>Εφαρμογή σε πραγματικό project</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Κουμπί για αξιολόγηση -->
+  <button id="rateCourseButton">Αξιολόγηση Course</button>
+
+  <!-- Περιοχή αξιολόγησης -->
+  <div id="ratingSection" style="display: none;">
+    <h3>Βαθμολογήστε το Course</h3>
+    <div id="starRating">
+      <span class="star" data-value="1">★</span>
+      <span class="star" data-value="2">★</span>
+      <span class="star" data-value="3">★</span>
+      <span class="star" data-value="4">★</span>
+      <span class="star" data-value="5">★</span>
+    </div>
+    <textarea id="commentBox" placeholder="Προσθέστε ένα σχόλιο..." rows="4"></textarea>
+    <button id="submitRatingButton">Υποβολή Αξιολόγησης</button>
+  </div>
+
+  <!-- Popup επιβεβαίωσης -->
+  <div id="ratingPopup" class="popup-message">✔ Η αξιολόγηση υποβλήθηκε!</div>
+
+  <script>
+    // Εναλλαγή περιοχής αξιολόγησης
+    document.getElementById('rateCourseButton').addEventListener('click', function () {
+      const section = document.getElementById('ratingSection');
+      section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    });
+
+    const stars = document.querySelectorAll('.star');
+    let selectedRating = 0;
+
+    // Επιλογή/αποθήκευση αστεριών
+    stars.forEach(star => {
+      star.addEventListener('click', function () {
+        selectedRating = this.getAttribute('data-value');
+        stars.forEach(s => {
+          s.classList.remove('selected');
+          if (s.getAttribute('data-value') <= selectedRating) {
+            s.classList.add('selected');
+          }
+        });
+      });
+
+      star.addEventListener('mouseover', function () {
+        stars.forEach(s => {
+          s.classList.remove('hover');
+          if (s.getAttribute('data-value') <= this.getAttribute('data-value')) {
+            s.classList.add('hover');
+          }
+        });
+      });
+
+      star.addEventListener('mouseout', function () {
+        stars.forEach(s => s.classList.remove('hover'));
+      });
+    });
+
+    // Υποβολή αξιολόγησης
+    document.getElementById('submitRatingButton').addEventListener('click', function () {
+      const comment = document.getElementById('commentBox').value;
+      if (selectedRating > 0) {
+        const popup = document.getElementById('ratingPopup');
+        popup.style.display = 'block';
+        setTimeout(() => {
+          popup.style.display = 'none';
+        }, 4000);
+        console.log(`Rating: ${selectedRating}, Comment: ${comment}`);
+      } else {
+        alert('Παρακαλώ επιλέξτε βαθμολογία.');
+      }
+    });
+  </script>
+
+</body>
+</html>

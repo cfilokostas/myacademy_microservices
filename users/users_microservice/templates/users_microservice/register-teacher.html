@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Εγγραφή Εκπαιδευτή | MyAcademy</title>
+  <link rel="stylesheet" href="{% static 'users_microservice/register-teacher_style.css' %}" />
+</head>
+<body>
+
+  <header class="top-bar">
+    <a class="logo" href="/">www.myacademy.gr</a>
+    <nav class="nav-links">
+      <a href="/">Αρχική</a>
+      <a href="/courses/">Μαθήματα</a>
+      <a href="/users/register-teacher/">Εγγραφή εκπαιδευτών</a>
+      <a href="/users/control-panel/">Πίνακας Ελέγχου</a>
+      <a href="/users/login/">Σύνδεση</a>
+    </nav>
+  </header>
+
+  <main class="registration-page">
+    <form class="registration-form" method="POST" action="/users/register-teacher/">
+      {% csrf_token %}
+      <h2>Εγγραφή Εκπαιδευτή</h2>
+
+      <label>Όνομα
+        <input type="text" name="first_name" placeholder="Όνομα" required>
+      </label>
+
+      <label>Επίθετο
+        <input type="text" name="last_name" placeholder="Επίθετο" required>
+      </label>
+
+      <label>Όνομα χρήστη
+        <input type="text" name="username" placeholder="Όνομα χρήστη" required>
+      </label>
+
+      <label>E-Mail
+        <input type="email" name="email" placeholder="E-Mail" required>
+      </label>
+
+      <label>Κωδικός πρόσβασης
+        <input type="password" name="password" placeholder="Κωδικός πρόσβασης" required>
+      </label>
+
+      <label>Επιβεβαίωση κωδικού πρόσβασης
+        <input type="password" name="password_confirm" placeholder="Επιβεβαίωση κωδικού πρόσβασης" required>
+      </label>
+
+      <p class="terms">
+        Με την εγγραφή σας, συμφωνείτε με τους
+        <a href="#">Όρους και Προϋποθέσεις</a>
+      </p>
+
+      <button type="submit">Εγγραφή</button>
+    </form>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'elearning/style.css' %}">
+{% endblock %}
+
+
+{% block page_title %}Home page{% endblock  %}
+{% block content %}
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Η Γνώση στο Σπίτι Σας</h1>
+      <p>Μάθε ό,τι θέλεις, από όπου θέλεις, όποτε θέλεις.</p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="/courses">Διαθέσιμα Μαθήματα</a>
+        <a class="btn btn-secondary" href="#">Ξεκίνα Σήμερα</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="courses">
+    <h2>Επιλεγμένα Μαθήματα</h2>
+    <div class="course-list">
+      <div class="course-card">
+        <p>⭐☆☆☆☆</p>
+        <h3>ΜΑΘΗΜΑ 4</h3>
+        <p>By admin</p>
+        <button>Εγγεγραμμένο Μάθημα</button>
+      </div>
+      <div class="course-card">
+        <p>⭐☆☆☆☆</p>
+        <h3>test 2</h3>
+        <p>By admin</p>
+        <button>Εγγεγραμμένο Μάθημα</button>
+      </div>
+      <div class="course-card">
+        <p>⭐⭐⭐⭐⭐ 5.00 (1)</p>
+        <h3>test 1</h3>
+        <p>By admin</p>
+        <p>100,00 €</p>
+        <button>Add to cart</button>
+      </div>
+    </div>
+  </section>
+
+  {%endblock%}

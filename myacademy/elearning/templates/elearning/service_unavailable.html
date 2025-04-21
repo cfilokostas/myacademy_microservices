@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'elearning/service_unavailable.css' %}">
+{% endblock %}
+
+
+{% block page_title %}Home page{% endblock  %}
+{% block content %}
+<h1>Το {{microservice_name}} Microservice είναι εκτός λειτουργίας</h1>
+<p>Παρακαλώ δοκιμάστε αργότερα.</p>
+<p>
+  <a class="btn btn-primary" href="/">Πίσω στην Αρχική</a>
+</p>
+ {%endblock%}

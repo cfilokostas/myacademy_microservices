@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Εγγραφή Χρήστη | MyAcademy</title>
+  <link rel="stylesheet" href="{%static "users_microservice/register_style.css"%}">
+</head>
+<body>
+
+  <header class="top-bar">
+    <a class="logo" href="/">www.myacademy.gr</a>
+    <nav class="nav-links">
+      <a href="/">Αρχική</a>
+
+      <div class="dropdown">
+        <a href="/courses/">Μαθήματα</a>
+        <div class="dropdown-content">
+          <a href="#">Design</a>
+          <a href="#">Lifestyle</a>
+          <a href="#">Marketing</a>
+          <a href="#">Επιχειρήσεις</a>
+          <a href="#">Λογιστικά και Οικονομικά</a>
+          <a href="#">Εργασίες Γραφείου</a>
+          <a href="#">Μουσική</a>
+          <a href="#">Πληροφορική</a>
+          <a href="#">Προσωπική Εξέλιξη</a>
+          <a href="#">Υγεία και Άσκηση</a>
+          <a href="#">Φωτογραφία και Βίντεο</a>
+        </div>
+      </div>
+
+      <a href="/users/register-teacher/">Εγγραφή εκπαιδευτών</a>
+      <a href="/users/control-panel/">Πίνακας Ελέγχου</a>
+      <a href="/users/login/">Σύνδεση</a>
+    </nav>
+  </header>
+
+  <main class="register-choice">
+    <h1>Εγγραφή Χρήστη</h1>
+    <p class="subtitle">Επίλεξε τον ρόλο με τον οποίο θέλεις να εγγραφείς στην πλατφόρμα.</p>
+
+    <div class="choice-container">
+      <div class="choice-card">
+        <h2>Μαθητής</h2>
+        <p>Ανακάλυψε μαθήματα, γράψου, και μάθε με τον δικό σου ρυθμό.</p>
+        <a href="/users/register-student" class="btn">Εγγραφή ως Μαθητής</a>
+      </div>
+
+      <div class="choice-card">
+        <h2>Καθηγητής</h2>
+        <p>Μοιράσου τις γνώσεις σου, δημιούργησε μαθήματα και δες τους μαθητές σου να προοδεύουν.</p>
+        <a href="/users/register-teacher" class="btn btn-secondary">Εγγραφή ως Καθηγητής</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

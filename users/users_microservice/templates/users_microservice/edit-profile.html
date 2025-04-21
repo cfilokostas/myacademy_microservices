@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Επεξεργασία Προφίλ | MyAcademy</title>
+  <link rel="stylesheet" href="{% static "users_microservice/edit-profile_style.css"%}" />
+</head>
+<body>
+
+  <header class="top-bar">
+    <a class="logo" href="/">www.myacademy.gr</a>
+    <nav class="nav-links">
+      <a href="/">Αρχική</a>
+
+      <div class="dropdown">
+        <a href="/courses/">Μαθήματα</a>
+        <div class="dropdown-content">
+          <a href="#">Design</a>
+          <a href="#">Lifestyle</a>
+          <a href="#">Marketing</a>
+          <a href="#">Επιχειρήσεις</a>
+          <a href="#">Λογιστικά και Οικονομικά</a>
+          <a href="#">Εργασίες Γραφείου</a>
+          <a href="#">Μουσική</a>
+          <a href="#">Πληροφορική</a>
+          <a href="#">Προσωπική Εξέλιξη</a>
+          <a href="#">Υγεία και Άσκηση</a>
+          <a href="#">Φωτογραφία και Βίντεο</a>
+        </div>
+      </div>
+
+      <a href="/users/register-teacher/">Εγγραφή εκπαιδευτών</a>
+      <a href="/users/control-panel/">Πίνακας Ελέγχου</a>
+      <a href="/users/login/">Σύνδεση</a>
+    </nav>
+  </header>
+
+  <div class="edit-profile-container">
+    <form class="edit-profile-form" id="profileForm">
+      <h2>Επεξεργασία Προφίλ</h2>
+
+      <label for="firstName">Όνομα</label>
+      <input type="text" id="firstName" name="firstName" placeholder="Όνομα" />
+
+      <label for="lastName">Επίθετο</label>
+      <input type="text" id="lastName" name="lastName" placeholder="Επίθετο" />
+
+      <label for="username">Όνομα χρήστη</label>
+      <input type="text" id="username" name="username" placeholder="Όνομα χρήστη" />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Email" />
+
+      <label for="phone">Τηλέφωνο</label>
+      <input type="tel" id="phone" name="phone" placeholder="π.χ. 6901234567" />
+
+      <label for="profession">Ικανότητα / Επάγγελμα</label>
+      <input type="text" id="profession" name="profession" placeholder="π.χ. Καθηγητής Πληροφορικής" />
+
+      <label for="bio">Βιογραφία</label>
+      <textarea id="bio" name="bio" rows="4" placeholder="Γράψε λίγα λόγια για σένα..."></textarea>
+
+      <button type="button" onclick="togglePasswordPanel()">Αλλαγή Κωδικού</button>
+
+      <div class="password-panel" id="passwordPanel">
+        <label for="currentPassword">Τρέχων Κωδικός</label>
+        <input type="password" id="currentPassword" name="currentPassword" placeholder="Τρέχων Κωδικός" />
+
+        <label for="newPassword">Νέος Κωδικός</label>
+        <input type="password" id="newPassword" name="newPassword" placeholder="Νέος Κωδικός" />
+
+        <label for="confirmPassword">Επιβεβαίωση Νέου Κωδικού</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Επιβεβαίωση Κωδικού" />
+
+        <div class="error-message" id="passwordError">Οι κωδικοί δεν ταιριάζουν.</div>
+      </div>
+
+      <div id="successMessage" class="success-message">✅ Το προφίλ σας ενημερώθηκε με επιτυχία.</div>
+
+      <button type="submit">Αποθήκευση Αλλαγών</button>
+    </form>
+  </div>
+
+  <script>
+    function togglePasswordPanel() {
+      const panel = document.getElementById('passwordPanel');
+      panel.classList.toggle('active');
+    }
+
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const error = document.getElementById('passwordError');
+      const success = document.getElementById('successMessage');
+
+      // Έλεγχος κωδικού
+      if (newPassword || confirmPassword) {
+        if (newPassword !== confirmPassword) {
+          e.preventDefault();
+          error.style.display = 'block';
+          success.style.display = 'none';
+          return;
+        } else {
+          error.style.display = 'none';
+        }
+      }
+
+      // Προσοχή: αφαίρεσε το e.preventDefault() όταν θα στείλεις σε server
+      e.preventDefault();
+
+      success.style.display = 'block';
+
+      // Κρύψε το μήνυμα μετά από λίγο
+      setTimeout(() => {
+        success.style.display = 'none';
+      }, 3000);
+    });
+  </script>
+
+</body>
+</html>

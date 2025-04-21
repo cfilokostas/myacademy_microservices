@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Dashboard | MyAcademy</title>
+  <link rel="stylesheet" href="{% static "users_microservice/control-panel_style.css"%}">
+  <style>
+    .section-content { display: none; }
+    .section-content.active { display: block; }
+  </style>
+</head>
+<body>
+  <header class="top-bar">
+    <a class="logo" href="/">www.myacademy.gr</a>
+    <nav class="nav-links">
+      <a href="/">Αρχική</a>
+
+      <div class="dropdown">
+        <a href="/courses/">Μαθήματα</a>
+        <div class="dropdown-content">
+          <a href="#">Design</a>
+          <a href="#">Lifestyle</a>
+          <a href="#">Marketing</a>
+          <a href="#">Επιχειρήσεις</a>
+          <a href="#">Λογιστικά και Οικονομικά</a>
+          <a href="#">Εργασίες Γραφείου</a>
+          <a href="#">Μουσική</a>
+          <a href="#">Πληροφορική</a>
+          <a href="#">Προσωπική Εξέλιξη</a>
+          <a href="#">Υγεία και Άσκηση</a>
+          <a href="#">Φωτογραφία και Βίντεο</a>
+        </div>
+      </div>
+
+      {% if user.is_authenticated %}
+        <a href="/users/control-panel/">Πίνακας Ελέγχου</a>
+        <a href="/users/logout/">Αποσύνδεση</a>
+        <a>Καλώς ήρθες, {{ user.first_name }}</a>
+      {% else %}
+        <a href="/users/login/">Σύνδεση</a>
+        <a href="/users/register/">Εγγραφή</a>
+
+      {% endif %}
+    </nav>
+  </header>
+
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="user-box">
+        <div class="avatar">image</div>
+        <h3>{{user.username}}</h3>
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="active" data-section="dashboard">Πίνακας Ελέγχου</li>
+        <li data-section="profile">Το Προφίλ μου</li>
+        <li data-section="courses">Εγγεγραμμένα μαθήματα</li>
+        <li data-section="wishlist">Επιθυμητά</li>
+        <li data-section="reviews">Κριτικές</li>
+        <li data-section="quiz">Προσπάθειες στο κουίζ</li>
+        <li data-section="orders">Ιστορικό Παραγγελιών</li>
+        <li data-section="qa">Ερώτηση & Απάντηση</li>
+        <li class="section">Εκπαιδευτής</li>
+        <li data-section="mycourses">Τα μαθήματά μου</li>
+        <li data-section="announcements">Ανακοινώσεις</li>
+        <li data-section="withdrawals">Αναλήψεις</li>
+        <li data-section="quizattempts">Προσπάθειες κουίζ</li>
+        <li data-section="settings">Ρυθμίσεις</li>
+        <li data-section="logout">Αποσύνδεση</li>
+      </ul>
+    </aside>
+
+    <main class="dashboard-main">
+      <div class="section-content active" id="dashboard">
+        <div class="top-action">
+          <a href="/courses/create-course" class="create-course">
+            + Δημιουργήστε ένα νέο μάθημα
+          </a>
+        </div>
+        <section class="stats">
+          <div class="stat-box"><div class="icon">📚</div><p>2<br><span>Εγγεγραμμένα μαθήματα</span></p></div>
+          <div class="stat-box"><div class="icon">🎓</div><p>1<br><span>Ενεργά μαθήματα</span></p></div>
+          <div class="stat-box"><div class="icon">🏆</div><p>1<br><span>Ολοκληρωμένα μαθήματα</span></p></div>
+          <div class="stat-box"><div class="icon">👥</div><p>0<br><span>Σύνολο μαθητών</span></p></div>
+          <div class="stat-box"><div class="icon">💰</div><p>0,00 €<br><span>Σύνολο εσόδων</span></p></div>
+        </section>
+        <section class="in-progress">
+          <h3>Μαθήματα Σε Εξέλιξη</h3>
+          <div class="course-card">
+            <div class="thumb"></div>
+            <div class="info">
+              <p class="stars">⭐⭐⭐⭐⭐ 0.00</p>
+              <h4>test 2</h4>
+              <p>Ολοκληρωμένα μαθήματα: 0 από 0</p>
+              <div class="progress-bar">
+                <div class="fill" style="width: 0%"></div>
+              </div>
+              <small>0% Ολοκληρωμένο</small>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="section-content" id="profile">
+        <h2>Το Προφίλ μου</h2>
+        <p>Όνομα: {{user.first_name}}</p>
+        <p>Επίθετο: {{user.last_name}}</p>
+        <p>Email: {{user.email}}</p>
+      </div>
+
+      <div class="section-content" id="courses">
+        <h2>Εγγεγραμμένα Μαθήματα</h2>
+        <p>Λίστα με τα μαθήματα...</p>
+      </div>
+
+      <!-- Προσθέστε αντίστοιχα divs για κάθε επιπλέον section -->
+    </main>
+  </div>
+
+  <script>
+    const menuItems = document.querySelectorAll('.sidebar-menu li[data-section]');
+    const sections = document.querySelectorAll('.section-content');
+
+    menuItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // Αφαίρεσε active από όλα
+        menuItems.forEach(i => i.classList.remove('active'));
+        sections.forEach(sec => sec.classList.remove('active'));
+
+        // Πρόσθεσε active στο επιλεγμένο
+        item.classList.add('active');
+        const sectionId = item.getAttribute('data-section');
+        document.getElementById(sectionId)?.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

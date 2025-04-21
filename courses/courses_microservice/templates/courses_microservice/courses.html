@@ -1,0 +1,151 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Μαθήματα | MyAcademy</title>
+  <link rel="stylesheet" href="{% static 'courses_microservice/courses_style.css' %}" />
+</head>
+<body>
+  <header class="top-bar">
+    <a class="logo" href="/">www.myacademy.gr</a>
+    <nav class="nav-links">
+      <a href="/">Αρχική</a>
+      <div class="dropdown">
+        <a href="/courses/">Μαθήματα</a>
+        <div class="dropdown-content">
+          <a href="#">Design</a>
+          <a href="#">Lifestyle</a>
+          <a href="#">Marketing</a>
+          <a href="#">Επιχειρήσεις</a>
+          <a href="#">Λογιστικά και Οικονομικά</a>
+          <a href="#">Εργασίες Γραφείου</a>
+          <a href="#">Μουσική</a>
+          <a href="#">Πληροφορική</a>
+          <a href="#">Προσωπική Εξέλιξη</a>
+          <a href="#">Υγεία και Άσκηση</a>
+          <a href="#">Φωτογραφία και Βίντεο</a>
+        </div>
+      </div>
+      <a href="/users/register-teacher/">Εγγραφή εκπαιδευτών</a>
+      <a href="/users/control-panel/">Πίνακας Ελέγχου</a>
+      <a href="/users/login/">Σύνδεση</a>
+    </nav>
+  </header>
+
+  <main class="courses-page">
+    <aside class="filters">
+        <!-- Φόρμα Αναζήτησης -->
+      <form method="GET" action="" class="search-form">
+        <input type="text" name="q" placeholder="Αναζήτηση μαθημάτων..." value="{{ request.GET.q|default:'' }}">
+        <button type="submit">🔍 Αναζήτηση</button>
+      </form>
+       <!-- Κατηγορίες Μαθημάτων -->
+      <h3>Κατηγορίες</h3>
+      <label><input type="checkbox" class="filter-category" value="all"> Όλες οι κατηγορίες</label>
+      <label><input type="checkbox" class="filter-category" value="3d-animation"> 3D και Animation</label>
+      <label><input type="checkbox" class="filter-category" value="Programming"> Programming</label>
+      <label><input type="checkbox" class="filter-category" value="Data Science"> Data science</label>
+      <label><input type="checkbox" class="filter-category" value="informatics"> Πληροφορική</label>
+
+      <h3>Επίπεδο</h3>
+      <label><input type="checkbox" class="filter-level" value="Beginner"> Αρχάριος</label>
+      <label><input type="checkbox" class="filter-level" value="Intermediate"> Ενδιάμεσο</label>
+      <label><input type="checkbox" class="filter-level" value="Advanced"> Ειδικός</label>
+
+      <h3>Κόστος</h3>
+      <label><input type="checkbox" class="filter-price" value="free"> Δωρεάν</label>
+      <label><input type="checkbox" class="filter-price" value="paid"> Πληρωμένο</label>
+
+      <button class="clear-btn">✕ Εκκαθάριση όλων των φίλτρων</button>
+    </aside>
+
+    <section class="course-listing">
+      <div class="course-cards">
+        {% for course in courses %}
+        <div class="course-card" 
+             data-category="{{ course.category }}" 
+             data-level="{{ course.level }}" 
+             data-price="{% if course.price == 0 %}free{% else %}paid{% endif %}" 
+             data-title="{{ course.title }}">
+          <div class="img-placeholder"></div>
+          <a href="/courses/{{ course.slug }}">{{ course.title }}</a>
+          <p>👤 {{ course.enrollment_count }}</p>
+          <p>Από <strong>{{ course.instructor }}</strong></p>
+          <p>Σε <em>{{ course.category }}</em></p>
+          <p>
+            {% for i in range_values %}
+              {% if i <= course.rating|default:0 %}
+                ⭐
+              {% else %}
+                ☆
+              {% endif %}
+            {% endfor %}
+          </p>
+          {% if course.price|default:0 != 0 %}
+            <p class="price">{{ course.price }} €</p>
+            <button>🛒 Αγορά Μαθήματος</button>
+          {% else %}
+            <button>Δωρεάν Εγγραφή</button>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Filter checkboxes
+      const categoryFilters = document.querySelectorAll('.filter-category');
+      const levelFilters = document.querySelectorAll('.filter-level');
+      const priceFilters = document.querySelectorAll('.filter-price');
+      const courseCards = document.querySelectorAll('.course-card');
+      const clearButton = document.querySelector('.clear-btn');
+
+      // Filter function
+      function filterCourses() {
+        const selectedCategories = Array.from(categoryFilters).filter(input => input.checked).map(input => input.value);
+        const selectedLevels = Array.from(levelFilters).filter(input => input.checked).map(input => input.value);
+        const selectedPrices = Array.from(priceFilters).filter(input => input.checked).map(input => input.value);
+
+        // Loop through all course cards
+        courseCards.forEach(course => {
+          const category = course.getAttribute('data-category');
+          const level = course.getAttribute('data-level');
+          const price = course.getAttribute('data-price');
+
+          const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
+          const matchesLevel = selectedLevels.length === 0 || selectedLevels.includes(level);
+          const matchesPrice = selectedPrices.length === 0 || selectedPrices.includes(price);
+
+          // Show or hide course based on filter matches
+          if (matchesCategory && matchesLevel && matchesPrice) {
+            course.style.display = 'block';
+          } else {
+            course.style.display = 'none';
+          }
+        });
+      }
+
+      // Add event listeners to filter checkboxes
+      categoryFilters.forEach(filter => filter.addEventListener('change', filterCourses));
+      levelFilters.forEach(filter => filter.addEventListener('change', filterCourses));
+      priceFilters.forEach(filter => filter.addEventListener('change', filterCourses));
+
+      // Clear all filters
+      clearButton.addEventListener('click', () => {
+        categoryFilters.forEach(filter => filter.checked = false);
+        levelFilters.forEach(filter => filter.checked = false);
+        priceFilters.forEach(filter => filter.checked = false);
+        filterCourses(); // Reset to show all courses
+      });
+
+      // Initial call to filter courses (in case any checkboxes are pre-selected)
+      filterCourses();
+    });
+  </script>
+</body>
+</html>

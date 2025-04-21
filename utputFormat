@@ -1,0 +1,13 @@
+HTTP/1.1 400 Bad Request
+Date: Mon, 21 Apr 2025 19:08:16 GMT
+Server: WSGIServer/0.2 CPython/3.11.1
+Content-Type: application/json
+Vary: Accept
+Allow: POST, OPTIONS
+X-Frame-Options: DENY
+Content-Length: 73
+X-Content-Type-Options: nosniff
+Referrer-Policy: same-origin
+Cross-Origin-Opener-Policy: same-origin
+
+{"detail":"JSON parse error - Expecting value: line 1 column 1 (char 0)"}

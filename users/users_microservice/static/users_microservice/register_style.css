@@ -1,0 +1,174 @@
+/* === Βασικά === */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9ff;
+}
+
+/* === Top Bar === */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 10px 30px;
+  font-size: 14px;
+  position: relative;
+  z-index: 10;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-links a {
+  background-color: #bde4f9;
+  padding: 6px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: black;
+  position: relative;
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 22px;
+  left: 0;
+  background-color: #7bd0dd;
+  min-width: 240px;
+  z-index: 99;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 16px;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dropdown-content a:hover {
+  background-color: #62c3d4;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* === Εγγραφή Επιλογής === */
+.register-choice {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.register-choice h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #2f4fff;
+}
+
+.register-choice .subtitle {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+/* === Επιλογές === */
+.choice-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.choice-card {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 300px;
+  min-height: 120px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.choice-card:hover {
+  transform: translateY(-4px);
+}
+
+.choice-card h2 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.choice-card p {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* === Κουμπιά === */
+.btn {
+  background-color: #2f4fff;
+  color: white;
+  text-decoration: none;
+  padding: 12px 10px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  width: 100%;
+  max-width: 200px;
+  text-align: center;
+  transition: background-color 0.2s ease-in-out;
+  margin-top: auto;
+}
+
+.btn:hover {
+  background-color: #1f39e0;
+}
+
+.btn-secondary {
+  background-color: #2f4fff;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #1f39e0;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .choice-card {
+    width: 100%;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    margin-top: 10px;
+  }
+}

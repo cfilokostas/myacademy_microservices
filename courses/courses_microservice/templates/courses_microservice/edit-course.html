@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Επεξεργασία Μαθήματος | MyAcademy</title>
+  <link rel="stylesheet" href="{% static "courses_microservice/edit-course_style.css" %}" />
+</head>
+
+<body>
+
+  <header class="top-bar">
+    <a class="logo" href="/">www.myacademy.gr</a>
+    <nav class="nav-links">
+      <a href="/">Αρχική</a>
+
+      <div class="dropdown">
+        <a href="/courses/">Μαθήματα</a>
+        <div class="dropdown-content">
+          <a href="#">Design</a>
+          <a href="#">Lifestyle</a>
+          <a href="#">Marketing</a>
+          <a href="#">Επιχειρήσεις</a>
+          <a href="#">Λογιστικά και Οικονομικά</a>
+          <a href="#">Εργασίες Γραφείου</a>
+          <a href="#">Μουσική</a>
+          <a href="#">Πληροφορική</a>
+          <a href="#">Προσωπική Εξέλιξη</a>
+          <a href="#">Υγεία και Άσκηση</a>
+          <a href="#">Φωτογραφία και Βίντεο</a>
+        </div>
+      </div>
+
+      <a href="/users/register-teacher/">Εγγραφή εκπαιδευτών</a>
+      <a href="/users/control-panel/">Πίνακας Ελέγχου</a>
+      <a href="/users/login/">Σύνδεση</a>
+    </nav>
+  </header>
+
+  <div class="course-form-container">
+    <form class="course-form" id="editCourseForm">
+      <h2>Επεξεργασία Μαθήματος</h2>
+
+      <label>Τίτλος Μαθήματος</label>
+      <input type="text" name="title" value="Μαθήματα Photoshop για Αρχάριους" />
+
+      <label>Περιγραφή</label>
+      <textarea name="description"
+        rows="4">Μάθε τα βασικά του Adobe Photoshop μέσα από πρακτικά παραδείγματα και projects.</textarea>
+
+      <label>Κατηγορία</label>
+      <select name="category">
+        <option>-- Επιλέξτε κατηγορία --</option>
+        <option selected>Design</option>
+        <option>Προγραμματισμός</option>
+        <option>Marketing</option>
+        <option>Φωτογραφία</option>
+        <option>Άλλο</option>
+      </select>
+
+      <label>Τιμή (€)</label>
+      <input type="number" name="price" value="29.99" />
+
+      <label>Επίπεδο</label>
+      <select name="level">
+        <option selected>Αρχάριος</option>
+        <option>Μέσος</option>
+        <option>Προχωρημένος</option>
+      </select>
+
+      <label>Εικόνα Thumbnail (αντικατάσταση)</label>
+      <input type="file" name="thumbnail" accept="image/*" />
+
+      <label>Νέο Περιεχόμενο Μαθήματος (ανεβάστε για ενημέρωση)</label>
+      <input type="file" name="content" multiple />
+
+      <label>Λέξεις-κλειδιά (SEO)</label>
+      <input type="text" name="keywords" value="photoshop, design, αρχάριοι" />
+
+      <button type="submit">Αποθήκευση Αλλαγών</button>
+    </form>
+  </div>
+
+  <!-- ✅ Popup επιβεβαίωσης -->
+  <div id="popupMessage" class="popup-message">✔ Οι αλλαγές αποθηκεύτηκαν με επιτυχία!</div>
+
+  <script>
+    function showPopup() {
+      const popup = document.getElementById('popupMessage');
+      popup.style.display = 'block';
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 4000);
+    }
+
+    document.getElementById('editCourseForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // Αφαίρεσε αν στέλνεις σε backend
+      showPopup();
+    });
+  </script>
+
+</body>
+
+</html>

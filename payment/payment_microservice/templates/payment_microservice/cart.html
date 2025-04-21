@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Καλάθι Αγορών | MyAcademy</title>
+  <link rel="stylesheet" href="{% static "payment_microservice/cart_style.css" %}">
+</head>
+
+<body>
+  <header class="top-bar">
+    <a class="logo" href="/">www.myacademy.gr</a>
+    <nav class="nav-links">
+      <a href="/">Αρχική</a>
+
+      <div class="dropdown">
+        <a href="/courses/">Μαθήματα</a>
+        <div class="dropdown-content">
+          <a href="#">Design</a>
+          <a href="#">Lifestyle</a>
+          <a href="#">Marketing</a>
+          <a href="#">Επιχειρήσεις</a>
+          <a href="#">Λογιστικά και Οικονομικά</a>
+          <a href="#">Εργασίες Γραφείου</a>
+          <a href="#">Μουσική</a>
+          <a href="#">Πληροφορική</a>
+          <a href="#">Προσωπική Εξέλιξη</a>
+          <a href="#">Υγεία και Άσκηση</a>
+          <a href="#">Φωτογραφία και Βίντεο</a>
+        </div>
+      </div>
+
+      <a href="/users/register-teacher/">Εγγραφή εκπαιδευτών</a>
+      <a href="/users/control-panel/">Πίνακας Ελέγχου</a>
+      <a href="/users/login/">Σύνδεση</a>
+    </nav>
+  </header>
+
+  <main class="cart-page">
+    <div class="cart-container">
+      <section class="cart-items">
+        <h2>Προϊόν</h2>
+
+        <div class="cart-item">
+          <img src="excel.jpg" alt="Excel Basic">
+          <div class="item-info">
+            <a href="#">Excel Basic</a>
+            <p><strong>1,00 €</strong></p>
+            <div class="qty">
+              <button>-</button>
+              <span>1</span>
+              <button>+</button>
+            </div>
+            <a href="#" class="remove">Αφαίρεση στοιχείου</a>
+          </div>
+          <div class="item-total">1,00 €</div>
+        </div>
+
+        <div class="cart-item">
+          <img src="excel-icon.png" alt="test 1">
+          <div class="item-info">
+            <a href="#">test 1</a>
+            <p><strong>100,00€</strong></p>
+            <div class="qty">
+              <button>-</button>
+              <span>1</span>
+              <button>+</button>
+            </div>
+            <a href="#" class="remove">Αφαίρεση στοιχείου</a>
+          </div>
+          <div class="item-total">100,00 €</div>
+        </div>
+      </section>
+
+      <aside class="cart-summary">
+        <h3>Σύνολα Καλαθιού</h3>
+        <div class="summary-line">
+          <span>Υποσύνολο</span>
+          <span>101,00 €</span>
+        </div>
+        <div class="summary-line total">
+          <strong>Σύνολο</strong>
+          <strong>101,00 €</strong>
+        </div>
+        <button class="balance">Διαθέσιμο Υπόλοιπο: 500 € </button>
+        <a href="#" class="checkout-link">Ολοκλήρωση Παραγγελίας</a>
+      </aside>
+    </div>
+  </main>
+</body>
+
+</html>
