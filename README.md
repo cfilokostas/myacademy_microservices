@@ -6,16 +6,16 @@ Microservices Overview
 
 The system is composed of the following microservices:
 
-my_academy (MAIN)
+1. my_academy (MAIN)
 Acts as the gateway, using proxies to route each request to the appropriate microservice.
 
-users
+2. users
 Handles user management and authentication.
 
-courses
+3. courses
 Manages course creation, enrollment, and related operations.
 
-virtual_payments
+4. virtual_payments
 A virtual wallet service that allows users to purchase available courses.
 
 Purpose
